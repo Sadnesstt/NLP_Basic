@@ -63,7 +63,7 @@ class DataLoader(object):
             batch_size=batch_size,
             device = 'cuda:%d' % device if device >= 0 else 'cpu',
             shuffle = shuffle,
-            sort_key = lambda x: len(x.text)
+            sort_key = lambda x: len(x.text),
             sort_within_batch=True,
         )
 
