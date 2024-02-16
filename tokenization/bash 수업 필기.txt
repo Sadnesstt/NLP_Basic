@@ -1,0 +1,9 @@
+echo '아버지가 방에서 나오신다.' | mecab # mecab으로 형태소 분석
+echo '아버지가 방에서 나오신다.' | mecab -O wakati # mecab으로 형태소 분석한 결과만 보여줌
+echo '애플 컴퓨터의 스티브 잡스' | mecab -O wakati # mecab으로 형태소 분석한 결과만 보여줌
+head ./review.sorted.uniq.refined.tsv # 파일의 앞줄만 보여줌
+cut -f2 ./review.sorted.uniq.refined.tsv | head -n 2 # 탭 두번째 필드의 2번째까지만 보여줌
+cut -f2 ./review.sorted.uniq.refined.tsv | mecab -O wakati | head -n 2 # 형태소 분석한거 2번째까지만 보여줌
+cut -f1 ./review.sorted.uniq.refined.tsv > review.sorted.uniq.refined.label
+cut -f2 ./review.sorted.uniq.refined.tsv | mecab -O wakati > ./review.sorted.uniq.refined.text.tok
+paste review.sorted.uniq.refined.label review.sorted.uniq.refined.text.tok > review.sorted.uniq.refined.tok.tsv # 두개 파일 붙여서 저장
