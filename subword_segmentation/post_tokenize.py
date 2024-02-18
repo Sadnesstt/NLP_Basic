@@ -5,7 +5,7 @@ STR = '▁'
 if __name__ == "__main__":
     ref_fn = sys.argv[1]
 
-    f = open(ref_fn, 'r')
+    f = open(ref_fn, 'r', encoding = 'UTF-8')
 
     for ref in f:
         ref_tokens = ref.strip().split(' ')
