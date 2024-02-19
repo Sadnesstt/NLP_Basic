@@ -4,7 +4,7 @@ class RNNClassifier(nn.Module):
 
     def __init__(
             self,
-            input_size,
+            input_size, # dependent on corpus
             word_vec_size,
             hidden_size,
             n_classes,
@@ -20,16 +20,16 @@ class RNNClassifier(nn.Module):
 
         super().__init__()
 
-        self.emb = nn.Embedding(input_size, word_vec_size)
+        self.emb = nn.Embedding(input_size, word_vec_size) # for efficient calculation
         self.rnn = nn.LSTM(
             input_size = word_vec_size,
             hidden_size = hidden_size,
             num_layers = n_layers,
             dropout = dropout_p,
-            batch_first=True,
-            bidirectional=True,
+            batch_first=True, # important
+            bidirectional=True, # non autoregressive(input at once)
         )
-        self.generator = nn.Linear(hidden_size * 2, n_classes)
+        self.generator = nn.Linear(hidden_size * 2, n_classes) # minimize dimension
         # We use LogSoftmax + NLLLoss instead of Softmax + CrossEntropy
         self.activation = nn.LogSoftmax(dim = -1)
 
@@ -37,7 +37,7 @@ class RNNClassifier(nn.Module):
         # |x| = (bathc_size, length)
         x = self.emb(x)
         # |x| = (batch_size, length, word_vec_size)
-        x, _ = self.rnn(x)
+        x, _ = self.rnn(x) # only use last output of timestep, drop out _
         # |x| = (batch_size, length, hidden_size * 2)
         y = self.activation(self.generator(x[:, -1]))
         # |y| = (batch_size, n_classes)
