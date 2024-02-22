@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-import numpy as numpy
+import numpy as np
 
 import torch
 
@@ -112,7 +112,7 @@ class MyEngine(Engine):
         # If the verbosity is set, progress bar would be shown for mini-batch iterations.
         # Without ignite, you can use tqdm to implement progress bar.
         if verbose >= VERBOSE_BATCH_WISE:
-            pbar = ProgressBar(bar_format=None, ncol=120)
+            pbar = ProgressBar(bar_format=None, ncols=120)
             pbar.attach(train_engine, training_metric_names)
 
         # If the verbosity is set, statistics would be shown after each epoch.

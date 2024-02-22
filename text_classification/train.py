@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+
 from simple_ntc.trainer import Trainer
 from simple_ntc.data_loader import DataLoader
 
